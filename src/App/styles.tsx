@@ -14,6 +14,13 @@ export const App = styled.div`
   }
 `
 
+export const QuestionContainer = styled.div`
+  .loading-container {
+    display: flex;
+    justify-content: center;
+  }
+`
+
 export const Question = styled.div`
   display: flex;
   border-bottom: 1px solid #CCC;

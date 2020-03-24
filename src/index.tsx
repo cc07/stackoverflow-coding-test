@@ -8,6 +8,7 @@ import App from './App';
 
 import { store } from './redux/store';
 
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import './styles.css';
 
 ReactDOM.render(

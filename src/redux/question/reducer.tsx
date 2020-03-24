@@ -10,7 +10,7 @@ export default function questionReducer(state = initState, action: any) {
   switch (action.type) {
     case actions.QUESTION_FETCH_REQUEST: {
       return {
-        ...state,
+        data: [],
         isLoading: true,
         error: '',
       };

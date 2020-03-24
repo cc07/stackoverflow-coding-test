@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
+import Loader from 'react-loader-spinner'
 
 import questionActions from 'src/redux/question/actions';
 
@@ -12,6 +13,7 @@ function App() {
   const [selectedTag, setSelectedTag] = useState<string>('');
   const tags = useSelector((state: any) => state.tag.data);
   const questions = useSelector((state: any) => state.question.data);
+  const isQuestionLoading = useSelector((state: any) => state.question.isLoading);
 
   useEffect(() => {
     if (tags[0]) {
@@ -38,7 +40,7 @@ function App() {
         selectedTag={selectedTag}
         setSelectedTag={setSelectedTag}
       />
-      <div className="question-container">
+      <S.QuestionContainer>
         {
           questions.map((question: any) => (
             <S.Question
@@ -81,7 +83,17 @@ function App() {
             </S.Question>
           ))
         }
-      </div>
+        {
+          isQuestionLoading && (
+            <div className="loading-container">
+              <Loader
+                type="Bars"
+                color="#333"
+              />
+            </div>
+          )
+        }
+      </S.QuestionContainer>
     </S.App>
   );
 }
