@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import * as S from './styles';
 
@@ -7,10 +7,10 @@ import tagActions from 'src/redux/tag/actions';
 
 function App() {
   const dispatch = useDispatch();
+  const tags = useSelector((state: any) => state.tag.data);
 
   useEffect(() => {
     dispatch(tagActions.fetchTag());
-    console.log('123');
   }, []);
 
   return (
@@ -27,11 +27,11 @@ function App() {
       <div>
         <h3>Trending</h3>
         <S.TagContainer>
-          <S.Tag className="active">javascript</S.Tag>
-          <S.Tag>javascript</S.Tag>
-          <S.Tag>javascript</S.Tag>
-          <S.Tag>javascript</S.Tag>
-          <S.Tag>javascript</S.Tag>
+          {
+            tags.map((tag: any) =>
+              <S.Tag>{ tag.name }</S.Tag>
+            )
+          }
         </S.TagContainer>
       </div>
       <div className="question-container">

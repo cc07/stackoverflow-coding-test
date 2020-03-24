@@ -55,6 +55,7 @@ export const Tag = styled.div`
   font-size: 0.8rem;
   margin-right: 0.5rem;
   margin-bottom: 0.5rem;
+  cursor: pointer;
 
   &.active {
     background: ${prop => prop.theme.primaryColor};

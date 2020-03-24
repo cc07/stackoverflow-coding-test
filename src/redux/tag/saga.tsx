@@ -8,13 +8,9 @@ export class TagSaga {
       try {
         const result = yield call(Api.fetchTag);
 
-        if (result.error) {
-          throw new Error(result.error.response.data.message);
-        }
-
         yield put({
           type: actions.TAG_FETCH_SUCCESS,
-          ...result,
+          data: result.data,
         });
       } catch (error) {
         yield put({

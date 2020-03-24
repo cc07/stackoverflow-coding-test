@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'src/utils/axios';
 
 export default class {
   public static async fetchTag(): Promise<any> {
@@ -9,21 +9,16 @@ export default class {
         sort: 'popular',
         site: 'stackoverflow',
       }
-      const result: AxiosResponse = await axios.post('https://api.stackexchange.com/2.2/tags', {
+      const result: AxiosResponse = await axios.get('/tags', {
         params,
       });
 
-      console.log(result);
-
       if (result.status !== 200 || !result.data) {
-        throw new Error('Login failed');
+        throw new Error('Fetch tags failed');
       }
 
-      // eslint-disable-next-line
-      const { access_token, user } = result.data;
-
       return {
-        accessToken: access_token,
+        data: result.data.items,
       };
     } catch (error) {
       return {

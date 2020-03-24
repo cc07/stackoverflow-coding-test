@@ -1,9 +1,10 @@
 import {
   combineReducers,
 } from 'redux';
-import Tag from './tag/reducer';
+
+import tag from './tag/reducer';
 
 export default combineReducers({
-  Tag,
+  tag,
   // Question,
 });
