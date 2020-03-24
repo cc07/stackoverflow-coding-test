@@ -6,7 +6,7 @@ const initState = {
   error: null,
 };
 
-export default function authReducer(state = initState, action: any) {
+export default function tagReducer(state = initState, action: any) {
   switch (action.type) {
     case actions.TAG_FETCH_REQUEST: {
       return {
