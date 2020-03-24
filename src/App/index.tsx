@@ -12,11 +12,15 @@ import * as S from './styles';
 function App() {
   const dispatch = useDispatch();
   const [selectedTag, setSelectedTag] = useState<string>('');
-  const tags = useSelector((state: any) => state.tag.data);
+  const tagSelector = useSelector((state: any) => state.tag);
+  const {
+    data: tags,
+    isLoading: isTagLoading,
+  } = tagSelector;
   const questionSelector = useSelector((state: any) => state.question);
   const {
     data: questions,
-    isQuestionLoading,
+    isLoading: isQuestionLoading,
     page,
     hasMore,
   } = questionSelector;
@@ -116,7 +120,7 @@ function App() {
           ))
         }
         {
-          isQuestionLoading && (
+          (isTagLoading || isQuestionLoading) && (
             <div className="loading-container">
               <Loader
                 type="Bars"
