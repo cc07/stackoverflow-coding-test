@@ -34,12 +34,12 @@ For production, please run the following command with yarn/npm, and compiled fil
 ### Yarn
 ```
 yarn build
-http-server ./build
+npx http-server ./build
 ```
 
 
 ### NPM
 ```
 npm run build
-http-server ./build
+npx http-server ./build
 ```
