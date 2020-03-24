@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import classNames from 'classnames';
-import Loader from 'react-loader-spinner'
 import { debounce } from 'debounce';
 
 import questionActions from 'src/redux/question/actions';
 
 import Header from './components/Header';
+import Question from './components/Question';
+import Loader from './components/Loader';
+
 import * as S from './styles';
 
 function App() {
@@ -25,17 +26,17 @@ function App() {
     hasMore,
   } = questionSelector;
 
-  const onScrollListener = (event: any) => {
+  const onScrollListener = () => {
     const container = document.querySelector('html');
 
-    if (container) {
+    if (container && hasMore) {
       const {
         scrollHeight,
         scrollTop,
         clientHeight,
       } = container;
 
-      if (hasMore && scrollTop > scrollHeight - clientHeight - 300) {
+      if (scrollTop > scrollHeight - clientHeight - 300) {
         dispatch(questionActions.fetchMore(selectedTag, page + 1));
       }
     }
@@ -65,10 +66,6 @@ function App() {
     dispatch(questionActions.fetchQuestion(selectedTag));
   }, [dispatch, selectedTag]);
 
-  const handleQuestionClick = (link: string) => {
-    window.open(link, '_blank');
-  }
-
   return (
     <S.App>
       <Header
@@ -78,55 +75,15 @@ function App() {
       <S.QuestionContainer>
         {
           questions.map((question: any) => (
-            <S.Question
+            <Question
               key={question.title}
-              onClick={() => handleQuestionClick(question.link)}
-            >
-              <div className="content">
-                <h4>{ question.title }</h4>
-                <div className="meta">
-                  <div className="content score">
-                    <div className="label">Score</div>
-                    <div
-                      className={classNames('value', {
-                        highlight: question.score < 0,
-                      })}
-                    >
-                      { question.score }
-                    </div>
-                  </div>
-                  <div className="content answers">
-                    <div className="label">Answers</div>
-                    <div
-                      className={classNames('value', {
-                        highlight: question.answer_count > 0,
-                        'is-answered': question.is_answered,
-                      })}
-                    >{ question.answer_count }</div>
-                  </div>
-                  <div className="content viewed">
-                    <div className="label">Viewed</div>
-                    <div className="value">{ question.view_count }</div>
-                  </div>
-                </div>
-              </div>
-              <div className="avatar">
-                <div className="image">
-                  <img src={ question.owner.profile_image } alt={`${question.owner.display_name}'s avatar`} />
-                </div>
-                <div className="name">{ question.owner.display_name }</div>
-              </div>
-            </S.Question>
+              question={question}
+            />
           ))
         }
         {
           (isTagLoading || isQuestionLoading) && (
-            <div className="loading-container">
-              <Loader
-                type="Bars"
-                color="#333"
-              />
-            </div>
+            <Loader />
           )
         }
       </S.QuestionContainer>
