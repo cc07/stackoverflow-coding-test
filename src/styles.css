@@ -1,5 +1,13 @@
 @import-normalize;
 
+body {
+  margin: 0;
+}
+
+body, div {
+  box-sizing: border-box;
+}
+
 input, button {
   font-size: 1rem;
 }
