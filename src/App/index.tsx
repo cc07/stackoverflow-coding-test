@@ -13,8 +13,13 @@ function App() {
   const dispatch = useDispatch();
   const [selectedTag, setSelectedTag] = useState<string>('');
   const tags = useSelector((state: any) => state.tag.data);
-  const questions = useSelector((state: any) => state.question.data);
-  const isQuestionLoading = useSelector((state: any) => state.question.isLoading);
+  const questionSelector = useSelector((state: any) => state.question);
+  const {
+    data: questions,
+    isQuestionLoading,
+    page,
+    hasMore,
+  } = questionSelector;
 
   const onScrollListener = (event: any) => {
     const container = document.querySelector('html');
@@ -26,8 +31,8 @@ function App() {
         clientHeight,
       } = container;
 
-      if (scrollTop > scrollHeight - clientHeight - 300) {
-        console.log('fetch more');
+      if (hasMore && scrollTop > scrollHeight - clientHeight - 300) {
+        dispatch(questionActions.fetchMore(selectedTag, page + 1));
       }
     }
   }
@@ -40,7 +45,7 @@ function App() {
     return () => {
       window.removeEventListener('scroll', debouncedOnScrollListener);
     }
-  }, []);
+  }, [debouncedOnScrollListener, hasMore]);
 
   useEffect(() => {
     if (tags[0]) {

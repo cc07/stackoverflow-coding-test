@@ -1,16 +1,17 @@
 import axios, { AxiosResponse } from 'src/utils/axios';
 
 export default class {
-  public static async fetchQuestion(tag: string): Promise<any> {
+  public static async fetchQuestion({ tag, page = 1 }: any): Promise<any> {
     try {
       const params = {
-        page: 1,
+        page,
         pagesize: 20,
         order: 'desc',
         sort: 'activity',
         site: 'stackoverflow',
         tagged: tag,
       }
+
       const result: AxiosResponse = await axios.get('/questions', {
         params,
       });
@@ -21,6 +22,7 @@ export default class {
 
       return {
         data: result.data.items,
+        hasMore: result.data.has_more,
       };
     } catch (error) {
       return {
