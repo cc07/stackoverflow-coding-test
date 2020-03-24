@@ -39,6 +39,7 @@ function App() {
           {
             tags.map((tag: any) =>
               <S.Tag
+                key={tag.name}
                 className={
                   classNames({ 'active': selectedTag === tag.name })
                 }
