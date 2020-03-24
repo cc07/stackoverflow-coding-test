@@ -32,6 +32,10 @@ function App() {
     dispatch(questionActions.fetchQuestion(selectedTag));
   }, [dispatch, selectedTag]);
 
+  const handleQuestionClick = (link: string) => {
+    window.open(link, '_blank');
+  }
+
   return (
     <S.App>
       <S.Search>
@@ -61,7 +65,9 @@ function App() {
       <div className="question-container">
         {
           questions.map((question: any) => (
-            <S.Question>
+            <S.Question
+              onClick={() => handleQuestionClick(question.link)}
+            >
               <div className="content">
                 <h4>{ question.title }</h4>
                 <div className="meta">

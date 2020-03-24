@@ -67,6 +67,7 @@ export const Question = styled.div`
   border-bottom: 1px solid #CCC;
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
+  cursor: pointer;
 
   > .content {
     flex: 1;
