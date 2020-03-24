@@ -3,8 +3,9 @@ import {
 } from 'redux';
 
 import tag from './tag/reducer';
+import question from './question/reducer';
 
 export default combineReducers({
   tag,
-  // Question,
+  question,
 });
