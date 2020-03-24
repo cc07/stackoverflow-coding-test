@@ -1,4 +1,4 @@
-This project is the coding test for imbee interview.
+This project is the coding test for frontend interview.
 
 ## Installation
 In order to install necessary packages, please run the following command with yarn/npm.
