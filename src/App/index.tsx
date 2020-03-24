@@ -5,15 +5,16 @@ import classNames from 'classnames';
 import * as S from './styles';
 
 import tagActions from 'src/redux/tag/actions';
+import questionActions from 'src/redux/question/actions';
 
 function App() {
   const dispatch = useDispatch();
-  const [selectedTag, setSelectedTag] = useState(null);
+  const [selectedTag, setSelectedTag] = useState<string>('');
   const tags = useSelector((state: any) => state.tag.data);
 
   useEffect(() => {
     dispatch(tagActions.fetchTag());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (tags[0]) {
@@ -21,6 +22,14 @@ function App() {
     }
 
   }, [tags]);
+
+  useEffect(() => {
+    if (!selectedTag) {
+      return;
+    }
+
+    dispatch(questionActions.fetchQuestion(selectedTag));
+  }, [dispatch, selectedTag]);
 
   return (
     <S.App>
