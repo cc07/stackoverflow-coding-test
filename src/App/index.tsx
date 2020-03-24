@@ -38,30 +38,32 @@ function App() {
 
   return (
     <S.App>
-      <S.Search>
-        <S.Input
-          type="text"
-          placeholder="tag"
-        />
-        <S.Button>
-          Search
-        </S.Button>
-      </S.Search>
-      <div>
-        <h3>Trending</h3>
-        <S.TagContainer>
-          {
-            tags.map((tag: any) =>
-              <S.Tag
-                key={tag.name}
-                className={
-                  classNames({ 'active': selectedTag === tag.name })
-                }
-              >{ tag.name }</S.Tag>
-            )
-          }
-        </S.TagContainer>
-      </div>
+      <S.Header>
+        <S.Search>
+          <S.Input
+            type="text"
+            placeholder="tag"
+          />
+          <S.Button>
+            Search
+          </S.Button>
+        </S.Search>
+        <div>
+          <h3>Trending</h3>
+          <S.TagContainer>
+            {
+              tags.map((tag: any) =>
+                <S.Tag
+                  key={tag.name}
+                  className={
+                    classNames({ 'active': selectedTag === tag.name })
+                  }
+                >{ tag.name }</S.Tag>
+              )
+            }
+          </S.TagContainer>
+        </div>
+      </S.Header>
       <div className="question-container">
         {
           questions.map((question: any) => (

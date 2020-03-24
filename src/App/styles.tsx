@@ -14,6 +14,14 @@ export const App = styled.div`
   }
 `
 
+export const Header = styled.div`
+  background: ${prop => prop.theme.whiteColor};
+  position: sticky;
+  top: 0;
+  margin-bottom: 1rem;
+  padding-top: 1rem;
+`
+
 export const Search = styled.div`
   display: flex;
 `
