@@ -23,7 +23,6 @@ export default class QuestionAction {
   }
 
   public static fetchMore(tag: string, page: number): IAction<{ tag: string, page: number}> {
-    console.log(26, tag, page);
     return {
       type: QuestionAction.QUESTION_FETCH_MORE_REQUEST,
       payload: {

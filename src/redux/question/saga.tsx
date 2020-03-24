@@ -8,7 +8,7 @@ import {
 
 export class QuestionSaga {
   public static * fetchQuestionRequest(): any {
-    yield takeEvery(actions.QUESTION_FETCH_REQUEST, function* ({ payload }: IAction<{ tag: string}>) {
+    yield takeEvery(actions.QUESTION_FETCH_REQUEST, function* ({ payload }: IAction<{ tag: string }>) {
       try {
         if (!payload || !payload.tag) {
           throw new Error('Tag is not provided');
