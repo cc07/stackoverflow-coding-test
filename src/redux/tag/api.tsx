@@ -1,13 +1,14 @@
 import axios, { AxiosResponse } from 'src/utils/axios';
 
 export default class {
-  public static async fetchTag(): Promise<any> {
+  public static async fetchTag(search?: string): Promise<any> {
     try {
       const params = {
         pagesize: 10,
         order: 'desc',
         sort: 'popular',
         site: 'stackoverflow',
+        inname: search,
       }
       const result: AxiosResponse = await axios.get('/tags', {
         params,

@@ -9,9 +9,12 @@ export default class TagAction {
   public static readonly TAG_FETCH_SUCCESS: string = `${NAMESPACE}/TAG_FETCH_SUCCESS`;
   public static readonly TAG_FETCH_ERROR: string = `${NAMESPACE}/TAG_FETCH_ERROR`;
 
-  public static fetchTag(): IAction<string> {
+  public static fetchTag(search?: string): IAction<{ search?: string }> {
     return {
       type: TagAction.TAG_FETCH_REQUEST,
+      payload: {
+        search,
+      }
     };
   }
 }
