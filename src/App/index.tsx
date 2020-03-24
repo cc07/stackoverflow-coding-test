@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { debounce } from 'debounce';
+import { toast } from 'react-toastify';
 
 import questionActions from 'src/redux/question/actions';
 
@@ -17,11 +18,13 @@ function App() {
   const {
     data: tags,
     isLoading: isTagLoading,
+    error: tagError,
   } = tagSelector;
   const questionSelector = useSelector((state: any) => state.question);
   const {
     data: questions,
     isLoading: isQuestionLoading,
+    error: questionError,
     page,
     hasMore,
   } = questionSelector;
@@ -65,6 +68,22 @@ function App() {
 
     dispatch(questionActions.fetchQuestion(selectedTag));
   }, [dispatch, selectedTag]);
+
+  useEffect(() => {
+    if (tagError) {
+      toast(tagError, {
+        type: 'error',
+      });
+    }
+  }, [tagError]);
+
+  useEffect(() => {
+    if (questionError) {
+      toast(questionError, {
+        type: 'error',
+      });
+    }
+  }, [questionError]);
 
   return (
     <S.App>

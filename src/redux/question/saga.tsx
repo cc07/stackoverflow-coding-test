@@ -44,7 +44,6 @@ export class QuestionSaga {
           ...result,
         });
       } catch (error) {
-        console.log(error)
         yield put({
           error: 'Error, please try again.',
           type: actions.QUESTION_FETCH_MORE_ERROR,
