@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import Loader from 'react-loader-spinner'
+import { debounce } from 'debounce';
 
 import questionActions from 'src/redux/question/actions';
 
@@ -15,11 +16,36 @@ function App() {
   const questions = useSelector((state: any) => state.question.data);
   const isQuestionLoading = useSelector((state: any) => state.question.isLoading);
 
+  const onScrollListener = (event: any) => {
+    const container = document.querySelector('html');
+
+    if (container) {
+      const {
+        scrollHeight,
+        scrollTop,
+        clientHeight,
+      } = container;
+
+      if (scrollTop > scrollHeight - clientHeight - 300) {
+        console.log('fetch more');
+      }
+    }
+  }
+
+  const debouncedOnScrollListener = debounce(onScrollListener, 300);
+
+  useEffect(() => {
+    window.addEventListener('scroll', debouncedOnScrollListener);
+
+    return () => {
+      window.removeEventListener('scroll', debouncedOnScrollListener);
+    }
+  }, []);
+
   useEffect(() => {
     if (tags[0]) {
       setSelectedTag(tags[0].name);
     }
-
   }, [tags]);
 
   useEffect(() => {
@@ -44,6 +70,7 @@ function App() {
         {
           questions.map((question: any) => (
             <S.Question
+              key={question.title}
               onClick={() => handleQuestionClick(question.link)}
             >
               <div className="content">
