@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import classNames from 'classnames';
 
 import * as S from './styles';
 
@@ -7,11 +8,19 @@ import tagActions from 'src/redux/tag/actions';
 
 function App() {
   const dispatch = useDispatch();
+  const [selectedTag, setSelectedTag] = useState(null);
   const tags = useSelector((state: any) => state.tag.data);
 
   useEffect(() => {
     dispatch(tagActions.fetchTag());
   }, []);
+
+  useEffect(() => {
+    if (tags[0]) {
+      setSelectedTag(tags[0].name);
+    }
+
+  }, [tags]);
 
   return (
     <S.App>
@@ -29,7 +38,11 @@ function App() {
         <S.TagContainer>
           {
             tags.map((tag: any) =>
-              <S.Tag>{ tag.name }</S.Tag>
+              <S.Tag
+                className={
+                  classNames({ 'active': selectedTag === tag.name })
+                }
+              >{ tag.name }</S.Tag>
             )
           }
         </S.TagContainer>

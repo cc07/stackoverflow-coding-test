@@ -57,7 +57,7 @@ export const Tag = styled.div`
   margin-bottom: 0.5rem;
   cursor: pointer;
 
-  &.active {
+  &.active, &:hover {
     background: ${prop => prop.theme.primaryColor};
   }
 `
