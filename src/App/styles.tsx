@@ -101,7 +101,7 @@ export const Question = styled.div`
         }
       }
 
-      > .score > .hightlight {
+      > .score > .highlight {
         color: ${prop => prop.theme.dangerColorLight};
       }
 
